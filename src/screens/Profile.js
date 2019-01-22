@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   View,
   Text,
   Image,
@@ -12,18 +13,33 @@ import { Colors } from '../constants';
 import Users from '../../fakedata/users.json';
 
 class Profile extends Component {
-  _logout = () => {
-    Alert.alert('// TODO: Make logout', 'Well this is awkward');
+
+  state = {user:null}
+  componentDidMount = () =>{
+    AsyncStorage.getItem('userToken', (err, userData) => {
+      if(userData){
+        this.setState({user: JSON.parse(userData)})
+      }
+    })
+   
+  
   }
+  _logout = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
 
+
+  
   render() {
-    const user = Users[1337];
 
+    let user = this.state.user
     return (
+      this.state.user?
       <View style={styles.container}>
         <View style={styles.profileCard}>
           <Image
-            source={{ uri: user.avatar }}
+            source={{ uri: user.picture }}
             style={styles.avatar}
           />
           <Text style={styles.name}>
@@ -36,7 +52,7 @@ class Profile extends Component {
         >
           Logout
         </Button>
-      </View>
+      </View> : null
     );
   }
 }

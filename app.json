@@ -1,9 +1,9 @@
 {
   "expo": {
-   "name": "Moshe @ Liav",
+   "name": "Dating",
    "icon": "./app-icon.png",
    "version": "1.0.0",
-   "slug": "your-app-slug",
+   "slug": "Dating",
    "sdkVersion": "30.0.0",
    "ios": {
      "bundleIdentifier": "com.israsur.Matched"

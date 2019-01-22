@@ -9,7 +9,20 @@ import AllMessages from './screens/AllMessages';
 import Profile from './screens/Profile';
 
 import UserProfile from './screens/UserProfile';
+import AuthLoadingScreen from './screens/AuthLoadingScreen';
+import SignInScreen from './screens/SignInScreen';
 import Chat from './screens/Chat';
+
+import {
+  Button,
+  ActivityIndicator,
+  AsyncStorage,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
+
+// More code like OtherScreen omitted for brevity
 
 const HomeTabs = TabNavigator({
   Explore: {
@@ -52,7 +65,8 @@ const HomeTabs = TabNavigator({
         />
       )
     }
-  }
+  },
+ 
 }, {
   tabBarOptions: {
     activeTintColor: '#F87961',
@@ -69,8 +83,13 @@ const HomeNavigator = StackNavigator(
   {
     HomeTabs: { screen: HomeTabs },
     Chat: { screen: Chat },
+    AuthLoading: AuthLoadingScreen,
+    Auth: SignInScreen,
   },
   {
+    initialRouteName: 'AuthLoading',
+
+    
     navigationOptions: {
       headerTintColor: Colors.primaryColor,
       headerStyle: {
@@ -83,6 +102,7 @@ const HomeNavigator = StackNavigator(
     }
   }
 )
+
 
 /**
  * Base level navigator
