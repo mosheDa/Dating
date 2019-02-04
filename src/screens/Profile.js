@@ -16,7 +16,7 @@ class Profile extends Component {
 
   state = {user:null}
   componentDidMount = () =>{
-    AsyncStorage.getItem('userToken', (err, userData) => {
+    AsyncStorage.getItem('userTokenDecoded', (err, userData) => {
       if(userData){
         this.setState({user: JSON.parse(userData)})
       }

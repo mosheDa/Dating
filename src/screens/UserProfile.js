@@ -8,13 +8,13 @@ class UserProfile extends Component {
 
   render() {
     const { navigation } = this.props;
-    const { userId } = navigation.state.params;
-    const user = Users[userId];
+    const { user } = navigation.state.params;
+    // const user = Users[userId];
 
     return (
       <View style={{ flex: 1 }}>
         <Image
-          source={{ uri: user.avatar }}
+          source={{ uri: user.picture }}
           style={{ flex: 1 }}
         />
         <CloseButton

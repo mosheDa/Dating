@@ -65,9 +65,7 @@ import jwtDecoder from 'jwt-decode';
   to see what URL to add if the above is confusing.
   If you use Facebook through Auth0, be sure to follow this guide: https://auth0.com/docs/connections/social/facebook
 */
-import Auth0 from 'react-native-auth0';
 
-const auth0 = new Auth0({ domain: 'uploadapp.eu.auth0.com', clientId: 'DKHHKIAl1xAXOmAfy36T0v3Dv92OAeRN' });
 const auth0ClientId = 'DKHHKIAl1xAXOmAfy36T0v3Dv92OAeRN';
 const auth0Domain = 'https://uploadapp.eu.auth0.com';
 
@@ -115,8 +113,8 @@ export default class SignInScreen extends React.Component {
       authUrl: `${auth0Domain}/authorize` + toQueryString({
         client_id: auth0ClientId,
         response_type: 'token id_token',
-        scope: 'openid profile',
-        audience: 'https://uploadapp.eu.auth0.com/userinfo',
+        scope: 'openid profile  read:users read:current_user read:user_idp_tokens',
+        audience: 'https://uploadapp.eu.auth0.com/api/v2/',
         nonce: "E-ok41-OA9bP0DUB",
         redirect_uri: redirectUrl,
       }),
@@ -137,9 +135,11 @@ export default class SignInScreen extends React.Component {
     }
     const encodedToken = responseObj.id_token;
     const decodedToken = jwtDecoder(encodedToken);
-    const username = decodedToken.name;
     console.log("decoded:  ",decodedToken)
-    AsyncStorage.setItem('userToken',JSON.stringify(decodedToken));
+    AsyncStorage.setItem('userTokenDecoded',JSON.stringify(decodedToken));
+    AsyncStorage.setItem('userTokenEncoded',JSON.stringify(encodedToken));
+
+    AsyncStorage.setItem('accessToken',responseObj.access_token);
 
     this.props.navigation.navigate('Explore');
   }
