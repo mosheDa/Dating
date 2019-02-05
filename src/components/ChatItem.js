@@ -9,14 +9,14 @@ import {
 import { Colors } from '../constants';
 
 const ChatItem = ({ user, text, date, onPress }) => {
-  const { name, avatar } = user;
+  const { name, picture } = user;
 
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <Image
           style={styles.avatar}
-          source={{ uri: avatar }}
+          source={{ uri: picture }}
         />
         <View style={styles.contentContainer}>
           <View style={styles.header}>

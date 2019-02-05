@@ -5,9 +5,17 @@ import { ChatItem } from '../components';
 
 // Fake data
 import Messages from '../../fakedata/messages.json';
-import Users from '../../fakedata/users.json';
+// import Users from '../../fakedata/users.json';
+import Api from '../services/data'
+
 
 class AllMessages extends Component {
+  state = {users:[], messages: []}
+  componentWillMount = () =>{
+    Api.getUsers((err, users) =>{
+      this.setState({users,  messages:Messages})
+    })
+  }
   _chatItemPressed = (chatId) => {
     this.props.navigation.navigate(
       'Chat',
@@ -18,7 +26,7 @@ class AllMessages extends Component {
   _renderChatItem = ({ item }) => {
     const id = item.id;
     const message = item.messages[0];
-    const user = Users[item.user];
+    const user = this.state.users[item.user];
 
     return (
       <ChatItem
@@ -34,7 +42,7 @@ class AllMessages extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
-          data={Messages.map(item =>
+          data={this.state.messages.map(item =>
             Object.assign({ key: item.id }, item)
           )}
           renderItem={this._renderChatItem}

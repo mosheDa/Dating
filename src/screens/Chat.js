@@ -40,7 +40,7 @@ class Chat extends Component {
           text: message.text,
           user: {
             _id: message.user,
-            avatar: user.avatar,
+            avatar: user.picture,
             name: user.name
           }
         }
